@@ -103,18 +103,33 @@ def game_hash
   }
 end
 
-def num_points_scored(searched_player)
-  game_hash.each do |home_away, team_attributes|
-    team_attributes.each do |team_keys, team_data|
-      if team_keys == :players
-        team_data.each do |player_data|
-          if player_data[:player_name] == searched_player
-            return player_data[:points]
-          end
-        end
-      end
+#def num_points_scored(searched_player)
+#  game_hash.each do |home_away, team_attributes|
+#    team_attributes.each do |team_keys, team_data|
+#      if team_keys == :players
+#        team_data.each do |player_data|
+#          if player_data[:player_name] == searched_player
+#            return player_data[:points]
+#          end
+#        end
+#      end
+#    end
+#  end
+#end
+
+def num_points_scored (searched_player)
+  player_points = 0
+  game_hash[:away][:players].each do |player_data|
+    if player_data[:player_name] == searched_player
+      player_points = player_data[:points]
     end
   end
+  game_hash[:home][:players].each do |player_data|
+    if player_data[:player_name] == searched_player
+      player_points = player_data[:points]
+    end
+  end
+  player_points
 end
 
 def shoe_size(searched_player)
@@ -179,22 +194,47 @@ player_stats_hash = {}
 end
 
 def big_shoe_rebounds
-largest_shoe_size = 0
-largest_shoe_rebs = 0
-  game_hash.each do |home_away, team_attributes|
-    team_attributes.each do |team_keys, team_data|
-      if team_keys == :players
-        team_data.each do |player_data|
-          if player_data[:shoe] > largest_shoe_size
-            largest_shoe_size = player_data[:shoe]
-            largest_shoe_rebs = player_data[:rebounds]
+  largest_shoe_size = 0
+  largest_shoe_rebs = 0
+    game_hash.each do |home_away, team_attributes|
+      team_attributes.each do |team_keys, team_data|
+        if team_keys == :players
+          team_data.each do |player_data|
+            if player_data[:shoe] > largest_shoe_size
+              largest_shoe_size = player_data[:shoe]
+              largest_shoe_rebs = player_data[:rebounds]
+            end
           end
         end
       end
     end
-  end
   largest_shoe_rebs
 end
+
+# def big_shoe_rebounds
+#   largest_shoe_size = 0
+#   largest_shoe_rebs = 0
+#     game_hash.each do |home_away, team_attributes|
+#       binding.pry
+#       team_attributes.each do |team_keys, team_data|
+#         if team_keys == :players
+#           team_data.each do |player_data|
+#             if player_data[:shoe] > largest_shoe_size
+#               largest_shoe_size = player_data[:shoe]
+#               largest_shoe_rebs = player_data[:rebounds]
+#             end
+#           end
+#         end
+#       end
+#     end
+#   largest_shoe_rebs
+# end
+
+# # Bonus Questions
+
+# # Since there are multiple bonus questions that ask me
+# # to return the name of a player with the most of some stat, I can use the following methods
+# # to DRY (don't repeat yourself) up my code.
 
 def iterate_through_players_for(name, statistic)
   game_hash.each do |_team, game_data|
