@@ -210,26 +210,6 @@ def big_shoe_rebounds
     end
   largest_shoe_rebs
 end
-
-# def big_shoe_rebounds
-#   largest_shoe_size = 0
-#   largest_shoe_rebs = 0
-#     game_hash.each do |home_away, team_attributes|
-#       binding.pry
-#       team_attributes.each do |team_keys, team_data|
-#         if team_keys == :players
-#           team_data.each do |player_data|
-#             if player_data[:shoe] > largest_shoe_size
-#               largest_shoe_size = player_data[:shoe]
-#               largest_shoe_rebs = player_data[:rebounds]
-#             end
-#           end
-#         end
-#       end
-#     end
-#   largest_shoe_rebs
-# end
-
 # # Bonus Questions
 
 # # Since there are multiple bonus questions that ask me
